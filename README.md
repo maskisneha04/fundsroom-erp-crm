@@ -47,7 +47,7 @@ fundsroom-erp-crm.netlify.app
 
 ## 🔐 Login
 
-![Nexus Ops Login](<img src="outputs/Login.png" alt="Nexus Ops Login Page" width="900"/>)
+<img src="outputs/Login.png" alt="Nexus Ops Login Page" width="900"/>
 
 The login page provides JWT-based authentication with demo accounts for different employee roles.
 
@@ -55,7 +55,7 @@ The login page provides JWT-based authentication with demo accounts for differen
 
 ## 📊 Dashboard
 
-![Nexus Ops Dashboard](<img src="outputs/Dashboard.png" alt="Nexus Ops Dashboard" width="900"/>)
+<img src="outputs/Dashboard.png" alt="Nexus Ops Dashboard" width="900"/>
 
 The dashboard provides an operational overview including:
 
@@ -72,7 +72,7 @@ The dashboard provides an operational overview including:
 
 ## 👥 Customer Management
 
-![Customer Management](<img src="outputs/Customer Management.png" alt="Customer Management" width="900"/>)
+<img src="outputs/Customer Management.png" alt="Customer Management" width="900"/>
 
 The Customer CRM module provides:
 
@@ -89,7 +89,7 @@ The Customer CRM module provides:
 
 ## 📦 Product Management
 
-![Product Management](<img src="outputs/Product Management.png" alt="Product Management" width="900"/>)
+<img src="outputs/Product Management.png" alt="Product Management" width="900"/>
 
 The Product module provides:
 
@@ -107,7 +107,7 @@ The Product module provides:
 
 ## 📋 Inventory Management
 
-![Inventory Management](<img src="outputs/Inventory.png" alt="Inventory Management" width="900"/>)
+<img src="outputs/Inventory.png" alt="Inventory Management" width="900"/>
 
 The Inventory module supports:
 
@@ -121,7 +121,7 @@ The Inventory module supports:
 
 ## 🧾 Sales Challans
 
-![Sales Challans](<img src="outputs/Sales Challans.png" alt="Sales Challans" width="900"/>)
+<img src="outputs/Sales Challans.png" alt="Sales Challans" width="900"/>
 
 The Sales Challan module supports:
 
@@ -134,8 +134,6 @@ The Sales Challan module supports:
 - Cancelled challans
 - Stock validation
 - Transactional stock reduction
-
----
 
 # 📌 Project Overview
 
