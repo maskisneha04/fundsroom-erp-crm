@@ -1,201 +1,333 @@
-# Mini ERP + CRM Operations Portal
+# 🚀 Nexus Ops — Mini ERP + CRM Operations Portal
 
-## 1. Project Overview
+Nexus Ops is a full-stack **Mini ERP + CRM Operations Portal** designed for a wholesale/distribution business.
 
-Nexus Ops is a Mini ERP + CRM portal for a wholesale/distribution company. Internal teams (Admin, Sales, Warehouse, Accounts) manage customers, products, stock movements, and sales challans with JWT role-based access and transactional stock rules.
+The application enables internal teams such as **Admin, Sales, Warehouse, and Accounts** to manage customers, products, inventory, stock movements, and sales challans through a secure role-based system.
 
-## 2. Features
+The project demonstrates real-world full-stack development concepts including:
 
-- JWT authentication and role-based authorization
-- Customer CRM (CRUD, search, filters, follow-up notes)
-- Products (CRUD, search, low-stock detection)
-- Inventory stock IN + stock movement history
-- Sales challans (multi-product, draft/confirm/cancel, product snapshots)
-- Dashboard summary API
-- Validation (Zod), pagination, centralized error handling
+- REST API development
+- JWT authentication
+- Role-based authorization
+- PostgreSQL database design
+- Prisma ORM
+- Transactional business logic
+- Input validation
+- Centralized error handling
+- Responsive React UI
+- API integration
+- Docker-based development
+- Cloud deployment
 
-## 3. Tech Stack
+---
 
-| Layer | Tech |
-|-------|------|
-| Frontend | React, TypeScript, Vite, React Router, Axios |
-| Backend | Node.js, Express, TypeScript, Zod, JWT, Helmet |
-| ORM | Prisma |
-| Database | PostgreSQL |
-
-## 4. Architecture
-
-```
-React (Axios)
-   ↓ REST
-Express routes
-   ↓ auth + role + Zod
-Controllers (thin)
-   ↓
-Services (business logic)
-   ↓
-Repositories / Prisma
-   ↓
-PostgreSQL
-```
-
-## 5. Database Design
-
-Main tables: `User`, `Customer`, `FollowUpNote`, `Product`, `StockMovement`, `Challan`, `ChallanItem`.
-
-Relationships:
-- User → stock movements, challans, follow-ups
-- Customer → challans, follow-ups
-- Product → stock movements, challan items
-- Challan → challan items (with product name/SKU/price snapshots)
-
-## 6. Project Structure
-
-```
-backend/src/
-  config/ controllers/ services/ repositories/
-  routes/ middleware/ validators/ utils/
-  app.ts server.ts
-backend/prisma/
-frontend/src/
-  components/ contexts/ hooks/ layouts/
-  pages/ routes/ services/ types/ utils/
-```
-
-## 7. Environment Variables
-
-### Backend (`backend/.env`)
-
-| Variable | Description |
-|----------|-------------|
-| `PORT` | API port (default `5000`) |
-| `DATABASE_URL` | PostgreSQL connection string |
-| `JWT_SECRET` | JWT signing secret |
-| `JWT_EXPIRES_IN` | Token lifetime (e.g. `8h`) |
-| `NODE_ENV` | `development` / `production` |
-| `CORS_ORIGIN` | Allowed frontend origins (comma-separated) |
-
-### Frontend (`frontend/.env`)
-
-| Variable | Description |
-|----------|-------------|
-| `VITE_API_URL` | API base URL (`/api` with Vite proxy locally, or full backend URL in production) |
-
-See `backend/.env.example` and `frontend/.env.example`.
-
-## 8. Local Setup
-
-### Prerequisites
-
-- Node.js 18+
-- PostgreSQL 14+ (local service or Neon/Supabase)
-
-### Database
-
-Create DB/user (example already used locally):
-
-```
-DATABASE_URL=postgresql://nexus:nexus@localhost:5432/nexus_ops?schema=public
-```
-
-Optional Docker Postgres:
-
-```bash
-docker compose up -d
-```
-
-### Backend
-
-```bash
-cd backend
-npm install
-cp .env.example .env   # then edit DATABASE_URL / JWT_SECRET
-npx prisma generate
-npx prisma migrate dev
-npm run seed
-npm run dev
-```
-
-API: `http://localhost:5000`
+## 🌐 Live Demo
 
 ### Frontend
 
-```bash
-cd frontend
-npm install
-cp .env.example .env
-npm run dev
-```
+**Live Application:**  
+fundsroom-erp-crm.netlify.app
 
-App: `http://localhost:5173` (Vite proxies `/api` → `:5000`)
+### Backend API
 
-## 9. API Documentation
+**Live Backend:**  
+[`YOUR_RENDER_BACKEND_URL`](https://fundsroom-erp-crm-backend-yx2t.onrender.com)
 
-Import [`postman/NexusOps.postman_collection.json`](postman/NexusOps.postman_collection.json).
+### GitHub Repository
 
-Key endpoints:
+**Source Code:**  
+[`YOUR_GITHUB_REPOSITORY_URL`](https://github.com/maskisneha04/fundsroom-erp-crm)
 
-| Method | Path |
-|--------|------|
-| POST | `/api/auth/login` |
-| GET | `/api/auth/me` |
-| GET/POST | `/api/customers` |
-| GET/PUT | `/api/customers/:id` |
-| POST | `/api/customers/:id/follow-ups` |
-| GET/POST | `/api/products` |
-| GET/PUT | `/api/products/:id` |
-| POST | `/api/products/:id/stock-in` |
-| GET | `/api/products/:id/stock-movements` |
-| GET/POST | `/api/challans` |
-| POST | `/api/challans/:id/confirm` |
-| POST | `/api/challans/:id/cancel` |
-| GET | `/api/dashboard/summary` |
 
-## 10. Test Credentials
+> The backend is deployed using a free Render instance and may take some time to respond after a period of inactivity.
 
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | `admin@test.com` | `Admin@123` |
-| Sales | `sales@test.com` | `Sales@123` |
-| Warehouse | `warehouse@test.com` | `Warehouse@123` |
-| Accounts | `accounts@test.com` | `Accounts@123` |
+---
 
-## 11. Business Logic
+# 📸 Screenshots
 
-- **DRAFT challan** does not reduce stock
-- **CONFIRMED challan** reduces stock inside a Prisma transaction and creates OUT movements
-- Stock can never go negative; insufficient stock returns `400` with available/requested quantities
-- Multi-product confirmation is all-or-nothing (full rollback)
-- Challan items store product **snapshots** (name, SKU, unit price)
-- Valid transitions: `DRAFT → CONFIRMED`, `DRAFT → CANCELLED` only
-- Confirmed challans cannot be cancelled (known limitation; no reversal flow)
+## 🔐 Login
 
-## 12. Deployment
+![Nexus Ops Login](<img src="outputs/Login.png" alt="Nexus Ops Login Page" width="900"/>)
 
-| Part | Suggested free host |
-|------|---------------------|
-| Frontend | Vercel / Netlify |
-| Backend | Render / Railway / Fly.io |
-| Database | Neon / Supabase / Render Postgres |
+The login page provides JWT-based authentication with demo accounts for different employee roles.
 
-1. Provision Postgres and set `DATABASE_URL`
-2. Set backend env vars (`JWT_SECRET`, `CORS_ORIGIN` = live frontend URL)
-3. Run `npx prisma migrate deploy` + seed (or seed once manually)
-4. Build backend: `npm run build` → `npm start`
-5. Build frontend with `VITE_API_URL=https://YOUR-API/api`
+---
 
-Do not hardcode localhost in production.
+## 📊 Dashboard
 
-## 13. Assumptions
+![Nexus Ops Dashboard](<img src="outputs/Dashboard.png" alt="Nexus Ops Dashboard" width="900"/>)
 
-- Internal employee tool (not public self-registration)
-- Opening stock on product create creates an IN movement
-- Accounts role is primarily read-only for customers/products/challans
-- Invoice PDF / purchase orders are out of core scope
+The dashboard provides an operational overview including:
 
-## 14. Known Limitations
+- Total customers
+- Total products
+- Low-stock products
+- Sales challans
+- Draft challans
+- Confirmed challans
+- Recent challans
+- Low-stock items
 
-- Invoice PDF export not implemented (bonus)
-- Product image / S3 upload not implemented (bonus)
-- GitHub Actions / AWS not prioritized
-- Confirmed challan cancellation/reversal not supported by design
+---
+
+## 👥 Customer Management
+
+![Customer Management](<img src="outputs/Customer Management.png" alt="Customer Management" width="900"/>)
+
+The Customer CRM module provides:
+
+- Customer search
+- Customer filtering
+- Customer status
+- Customer type
+- Business information
+- Mobile number
+- Follow-up information
+- Customer management
+
+---
+
+## 📦 Product Management
+
+![Product Management](<img src="outputs/Product Management.png" alt="Product Management" width="900"/>)
+
+The Product module provides:
+
+- Product listing
+- SKU management
+- Categories
+- Unit price
+- Current stock
+- Minimum stock level
+- Warehouse/location
+- Low-stock identification
+- Product search
+
+---
+
+## 📋 Inventory Management
+
+![Inventory Management](<img src="outputs/Inventory.png" alt="Inventory Management" width="900"/>)
+
+The Inventory module supports:
+
+- Stock IN operations
+- Current stock monitoring
+- Minimum stock alerts
+- Stock movement tracking
+- Product-level inventory management
+
+---
+
+## 🧾 Sales Challans
+
+![Sales Challans](<img src="outputs/Sales Challans.png" alt="Sales Challans" width="900"/>)
+
+The Sales Challan module supports:
+
+- Customer selection
+- Multiple products
+- Quantity management
+- Automatic challan numbers
+- Draft challans
+- Confirmed challans
+- Cancelled challans
+- Stock validation
+- Transactional stock reduction
+
+---
+
+# 📌 Project Overview
+
+Nexus Ops is designed as an internal ERP + CRM system for a wholesale/distribution company.
+
+The application focuses on four major operational areas:
+
+1. **Authentication and role management**
+2. **Customer CRM**
+3. **Product and inventory management**
+4. **Sales challan management**
+
+The project implements business rules such as preventing negative stock, validating available inventory before challan confirmation, storing product snapshots, and performing stock updates transactionally.
+
+---
+
+# ✨ Features
+
+## 🔐 Authentication & Role-Based Authorization
+
+- JWT-based authentication
+- Secure login
+- Protected routes
+- Role-based authorization
+- Four employee roles:
+  - Admin
+  - Sales
+  - Warehouse
+  - Accounts
+- Backend authorization middleware
+- Frontend route protection
+
+---
+
+## 👥 Customer CRM
+
+The Customer CRM module provides:
+
+- Add customer
+- Edit customer
+- Search customer
+- Filter customer
+- View customer information
+- Customer status management
+- Customer type management
+- Follow-up dates
+- Follow-up notes
+- Business information
+- Mobile number
+- Email address
+- GST number
+- Address
+
+### Customer Types
+
+- Retail
+- Wholesale
+- Distributor
+
+### Customer Status
+
+- Lead
+- Active
+- Inactive
+
+---
+
+## 📦 Product Management
+
+The Product module provides:
+
+- Add product
+- Edit product
+- Search product
+- SKU/code management
+- Category
+- Unit price
+- Current stock
+- Minimum stock quantity
+- Warehouse/location
+- Low-stock detection
+
+---
+
+## 📊 Inventory Management
+
+The Inventory module provides:
+
+- Stock IN operations
+- Stock movement history
+- IN/OUT movement tracking
+- Quantity tracking
+- Movement reason
+- Created-by tracking
+- Timestamp tracking
+- Low-stock alerts
+
+---
+
+## 🧾 Sales Challan Management
+
+The Sales Challan module provides:
+
+- Create challan
+- Select customer
+- Add multiple products
+- Add quantities
+- Automatically generate challan number
+- Save challan as Draft
+- Confirm challan
+- Cancel challan
+- Product snapshot storage
+- Stock validation
+- Negative-stock prevention
+- Transactional stock updates
+
+---
+
+## 📈 Dashboard
+
+The dashboard provides a summary of operational information:
+
+- Customer count
+- Product count
+- Low-stock count
+- Challan count
+- Draft challan count
+- Confirmed challan count
+- Low-stock items
+- Recent challans
+
+---
+
+# 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React |
+| Language | TypeScript |
+| Build Tool | Vite |
+| Routing | React Router |
+| HTTP Client | Axios |
+| Backend | Node.js |
+| API Framework | Express.js |
+| Backend Language | TypeScript |
+| Authentication | JWT |
+| Validation | Zod |
+| Security | Helmet |
+| ORM | Prisma |
+| Database | PostgreSQL |
+| API Style | REST |
+| Frontend Deployment | Netlify |
+| Backend Deployment | Render |
+| Containerization | Docker |
+| API Testing | Postman |
+
+---
+
+# 🏗️ Architecture
+
+```text
+                    ┌─────────────────────┐
+                    │      React UI       │
+                    │  TypeScript + Vite  │
+                    └──────────┬──────────┘
+                               │
+                               │ Axios / REST API
+                               ▼
+                    ┌─────────────────────┐
+                    │   Express Server    │
+                    │    TypeScript       │
+                    └──────────┬──────────┘
+                               │
+                    ┌──────────▼──────────┐
+                    │ Authentication &    │
+                    │ Role Middleware     │
+                    └──────────┬──────────┘
+                               │
+                    ┌──────────▼──────────┐
+                    │    Controllers      │
+                    │   Thin Controllers  │
+                    └──────────┬──────────┘
+                               │
+                    ┌──────────▼──────────┐
+                    │      Services       │
+                    │  Business Logic     │
+                    └──────────┬──────────┘
+                               │
+                    ┌──────────▼──────────┐
+                    │ Repositories/Prisma │
+                    └──────────┬──────────┘
+                               │
+                    ┌──────────▼──────────┐
+                    │     PostgreSQL      │
+                    └─────────────────────┘
