@@ -26,20 +26,19 @@ The project demonstrates real-world full-stack development concepts including:
 ### Frontend
 
 **Live Application:**  
-fundsroom-erp-crm.netlify.app
+[https://fundsroom-erp-crm.netlify.app/](https://fundsroom-erp-crm.netlify.app/)
 
 ### Backend API
 
 **Live Backend:**  
-[`YOUR_RENDER_BACKEND_URL`](https://fundsroom-erp-crm-backend-yx2t.onrender.com)
+[https://fundsroom-erp-crm-backend-yx2t.onrender.com](https://fundsroom-erp-crm-backend-yx2t.onrender.com)
 
 ### GitHub Repository
 
 **Source Code:**  
-[`YOUR_GITHUB_REPOSITORY_URL`](https://github.com/maskisneha04/fundsroom-erp-crm)
+[https://github.com/maskisneha04/fundsroom-erp-crm](https://github.com/maskisneha04/fundsroom-erp-crm)
 
-
-> The backend is deployed using a free Render instance and may take some time to respond after a period of inactivity.
+> The frontend is deployed on Netlify and the backend is deployed on Render. The free Render instance may take a few seconds to wake up after inactivity.
 
 ---
 
